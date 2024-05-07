@@ -51,6 +51,18 @@ function init() {
     audioElement.volume = volume / 100;
   });
 
+  // Create instances of JSConfetti for Left and right
+const jsConfettiLeft = new JSConfetti({
+  confettiRadius: 4,
+  confettiNumber: 500,
+  target: 'left',
+});
+
+const jsConfettiRight = new JSConfetti({
+  confettiRadius: 4,
+  confettiNumber: 500,
+  target: 'right',
+});
 // Event listener for play button click
 playButton.onclick = () => {
   const selectedHorn = selectElement.value;
@@ -67,31 +79,22 @@ playButton.onclick = () => {
     case "party-horn":
       audioElement.src = "assets/audio/party-horn.mp3";
 
-      // Trigger confetti effect for party horn
-      const jsConfetti = new JSConfetti();
-      // emojis as confetti
-      // jsConfetti.addConfetti({
-      //   emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🦄', '🌸'],
-      // });
+     // Trigger confetti effect for party horn from both top and bottom
+     
+     jsConfettiLeft.addConfetti({
+      confettiColors: [
+        '#ff0a54', '#ff477e', '#ff7096','#ff85a1', '#fbb1bd', '#fbb1bd', '#f9bec7'
+      ],
+    });
+    jsConfettiRight.addConfetti({
+      emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],
+    });
+    break;
+  default:
+    break;
+}
 
-      //costomized color confetti
-      jsConfetti.addConfetti({
-        confettiColors: [
-          '#ff0a54', '#ff477e', '#ff7096','#ff85a1', '#fbb1bd', '#fbb1bd', '#f9bec7'
-        ],
-      })
-      jsConfetti.addConfetti({
-        confettiRadius: 4,
-        confettiNumber: 500,
-        //target: 'right,' //I couldn't make this work
-      });
-      jsConfetti.addConfetti();
-      break;
-    default:
-      break;
-  }
-
-  // Play the selected horn sound
-  audioElement.play();
-};  
+// Play the selected horn sound
+audioElement.play();
+};
 }
